@@ -1,0 +1,6 @@
+User-agent: *
+Allow: /
+
+Host: bigcitydinerhawaii.com
+sitemap: https://bigcitydinerhawaii.com/sitemap.xml
+Sitemap: https://bigcitydinerhawaii.com/best-catering-hawaii/sitemap.xml

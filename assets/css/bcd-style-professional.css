@@ -637,119 +637,154 @@ h2 {
     font-weight: 600;
 }
 
-.platters-grid {
+/* Premium print-menu layout — responsive columns, dotted leaders, no price pills */
+.menu-sections {
     display: grid;
-    grid-template-columns: repeat(2, minmax(0, 1fr));
-    gap: 1.3rem;
+    grid-template-columns: repeat(auto-fit, minmax(310px, 1fr));
+    gap: 1.9rem 2.4rem;
     align-items: start;
+    margin-top: 0.5rem;
 }
 
-@media (max-width: 768px) {
-    .platters-grid {
+@media (max-width: 560px) {
+    .menu-sections {
         grid-template-columns: 1fr;
+        gap: 1.6rem;
     }
 }
 
-.platter-card {
-    display: flex;
-    flex-direction: column;
-    height: 100%;
-    overflow: hidden;
-    border-radius: var(--radius);
+.menu-section {
     background: #fff;
     border: 1px solid var(--line);
+    border-radius: var(--radius);
     box-shadow: var(--sh-sm);
+    padding: 1.55rem 1.7rem 1.65rem;
     transition: transform 0.3s ease, box-shadow 0.3s ease;
 }
 
-.platter-card:hover {
-    transform: translateY(-5px);
+.menu-section:hover {
+    transform: translateY(-4px);
     box-shadow: var(--sh-md);
 }
 
-.platter-card h3 {
+/* Famous Local Creations spans the full width and reads in two columns */
+.menu-section.feature {
+    grid-column: 1 / -1;
+}
+
+/* ---- Section header: bold uppercase title + icon chip + gold accent rule ---- */
+.ms-head {
+    position: relative;
     display: flex;
     align-items: center;
-    gap: 0.55rem;
-    padding: 1rem 1.15rem;
-    min-height: 3.2rem;
-    background: linear-gradient(135deg, var(--red) 0%, var(--red-deep) 100%);
-    color: #fff;
-    font-family: var(--font-head);
-    font-size: 1rem;
-    font-weight: 600;
-    letter-spacing: 1px;
-    text-transform: uppercase;
+    gap: 0.75rem;
+    margin-bottom: 1.15rem;
+    padding-bottom: 0.85rem;
+    border-bottom: 2px solid var(--line);
 }
 
-/* gold-accented category header variant */
-.platter-card[style*="--gold"] h3,
-.platter-card.gold h3 {
-    background: linear-gradient(135deg, var(--red) 0%, var(--red-deep) 100%);
+.ms-head::after {
+    content: "";
+    position: absolute;
+    left: 0;
+    bottom: -2px;
+    width: 72px;
+    height: 2px;
+    background: linear-gradient(90deg, var(--gold-deep), var(--gold));
+    border-radius: 2px;
 }
 
-.platter-card .emoji {
+.ms-icon {
+    flex-shrink: 0;
+    width: 2.4rem;
+    height: 2.4rem;
+    display: grid;
+    place-items: center;
+    border-radius: 999px;
+    background: linear-gradient(135deg, var(--red) 0%, var(--red-deep) 100%);
     font-size: 1.15rem;
-    filter: drop-shadow(0 1px 2px rgba(0, 0, 0, 0.2));
+    box-shadow: 0 3px 8px rgba(184, 20, 20, 0.28);
 }
 
-.platter-list {
+.ms-head h3 {
+    margin: 0;
+    font-family: var(--font-head);
+    font-weight: 700;
+    font-size: 1.2rem;
+    letter-spacing: 1.5px;
+    text-transform: uppercase;
+    color: var(--ink);
+    line-height: 1.15;
+}
+
+.menu-section.feature .ms-head {
+    justify-content: center;
+    text-align: center;
+    gap: 0.85rem;
+}
+
+.menu-section.feature .ms-head::after {
+    left: 50%;
+    transform: translateX(-50%);
+    width: 120px;
+    height: 3px;
+}
+
+.menu-section.feature .ms-head h3 {
+    font-size: 1.42rem;
+    letter-spacing: 2px;
+}
+
+/* ---- Menu items: name .... dotted leader .... bold price ---- */
+.menu-items {
     list-style: none;
     margin: 0;
     padding: 0;
+}
+
+.menu-section.feature .menu-items {
+    columns: 2;
+    column-gap: 3.5rem;
+}
+
+@media (max-width: 620px) {
+    .menu-section.feature .menu-items {
+        columns: 1;
+    }
+}
+
+.menu-line {
     display: flex;
-    flex-direction: column;
-    flex: 1;
+    align-items: flex-end;
+    gap: 0.55rem;
+    padding: 0.52rem 0;
+    break-inside: avoid;
 }
 
-.platter-list li {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    gap: 0.6rem;
-    padding: 0.62rem 1.1rem;
-    min-height: 2.7rem;
-    border-bottom: 1px solid var(--line);
-    transition: background 0.2s ease;
-}
-
-.platter-list li:hover {
-    background: var(--red-tint);
-}
-
-.platter-list li:last-child {
-    border-bottom: 0;
-}
-
-.platter-name {
-    display: block;
-    font-weight: 500;
-    color: var(--ink);
-    font-size: 0.94rem;
-    line-height: 1.4;
-}
-
-.platter-desc {
-    display: block;
-    margin-top: 0.15rem;
-    color: var(--muted);
-    font-size: 0.78rem;
-    font-weight: 300;
-    line-height: 1.35;
-}
-
-.platter-price {
-    flex-shrink: 0;
-    padding: 0.28rem 0.65rem;
-    border-radius: 999px;
-    background: linear-gradient(135deg, var(--gold-light), var(--gold));
-    color: var(--dark-2);
-    font-family: var(--font-head);
+.mi-name {
     font-weight: 600;
-    font-size: 0.86rem;
+    font-size: 0.98rem;
+    line-height: 1.35;
+    color: var(--ink);
+    letter-spacing: 0.2px;
+}
+
+.mi-dots {
+    flex: 1 1 auto;
+    min-width: 1.2rem;
+    margin-bottom: 0.3rem;
+    border-bottom: 2px dotted #d3c4a8;
+}
+
+.mi-price {
+    flex-shrink: 0;
+    font-family: var(--font-head);
+    font-weight: 700;
+    font-size: 1rem;
+    line-height: 1.2;
     letter-spacing: 0.3px;
+    color: var(--red-deep);
     white-space: nowrap;
-    box-shadow: 0 2px 6px rgba(226, 153, 0, 0.28);
 }
 
 /* ============================ PROCESS ============================ */
@@ -1378,11 +1413,6 @@ footer::before {
 
     .trust-grid {
         grid-template-columns: repeat(2, 1fr);
-    }
-
-    .platter-list li {
-        flex-direction: column;
-        align-items: flex-start;
     }
 
     .cta-box {
